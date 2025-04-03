@@ -9,11 +9,11 @@ const REFERENCE_DATE = new Date('2022-12-22T00:00:00');
 
 // Placeholders para o carrossel (em uma aplicação real, seriam fotos do casal)
 const IMAGES = [
-  `https://placehold.co/600x400/ffafbd/ffffff?text=Foto+1`,
-  `https://placehold.co/600x400/ffc3a0/ffffff?text=Foto+2`,
-  `https://placehold.co/600x400/ff69b4/ffffff?text=Foto+3`,
-  `https://placehold.co/600x400/ffd1dc/ffffff?text=Foto+4`,
-  `https://placehold.co/600x400/ff1493/ffffff?text=Foto+5`,
+  `https://placehold.co/800x600/ffafbd/ffffff?text=Foto+1`,
+  `https://placehold.co/800x600/ffc3a0/ffffff?text=Foto+2`,
+  `https://placehold.co/800x600/ff69b4/ffffff?text=Foto+3`,
+  `https://placehold.co/800x600/ffd1dc/ffffff?text=Foto+4`,
+  `https://placehold.co/800x600/ff1493/ffffff?text=Foto+5`,
 ];
 
 export default function Dashboard() {
@@ -26,6 +26,7 @@ export default function Dashboard() {
     seconds: 0
   });
   const [currentImage, setCurrentImage] = useState(0);
+  const [animateCards, setAnimateCards] = useState(false);
 
   // Função para calcular o tempo decorrido
   const calculateTimeElapsed = () => {
@@ -65,6 +66,11 @@ export default function Dashboard() {
     return () => clearInterval(imageInterval);
   }, []);
 
+  // Efeito para animar os cards
+  useEffect(() => {
+    setAnimateCards(true);
+  }, []);
+
   // Função para fazer logout
   const handleLogout = async () => {
     try {
@@ -80,66 +86,136 @@ export default function Dashboard() {
     }
   };
 
+  // Função para avançar ou voltar no carrossel
+  const navigateCarousel = (direction) => {
+    if (direction === 'next') {
+      setCurrentImage((prev) => (prev + 1) % IMAGES.length);
+    } else {
+      setCurrentImage((prev) => (prev === 0 ? IMAGES.length - 1 : prev - 1));
+    }
+  };
+
   return (
     <main className={styles.main}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>ForeverCounting</h1>
+      <div className={styles.glassOverlay}></div>
+
+      <header className={styles.header}>
+        <div className={styles.logoContainer}>
+          <h1 className={styles.title}>
+            <span className={styles.titleFirst}>Forever</span>
+            <span className={styles.titleSecond}>Counting</span>
+          </h1>
+        </div>
         <button onClick={handleLogout} className={styles.logoutButton}>
-          Sair
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Sair</span>
         </button>
-      </div>
+      </header>
 
-      <div className={styles.content}>
-        <div className={styles.loveQuote}>
-          <h2>Eu te amo há:</h2>
+      <section className={styles.dashboardContainer}>
+        <div className={styles.loveSection}>
+          <div className={styles.loveQuote}>
+            <span className={styles.quoteSubtext}>Nosso amor em números</span>
+            <h2 className={styles.quoteText}>Eu te amo há:</h2>
+          </div>
+
+          <div className={styles.counterContainer}>
+            <div className={`${styles.timeCard} ${animateCards ? styles.animate : ''}`} style={{ animationDelay: '0.1s' }}>
+              <div className={styles.timeCardInner}>
+                <span className={styles.count}>{timeElapsed.years}</span>
+                <span className={styles.label}>Anos</span>
+              </div>
+            </div>
+            <div className={`${styles.timeCard} ${animateCards ? styles.animate : ''}`} style={{ animationDelay: '0.2s' }}>
+              <div className={styles.timeCardInner}>
+                <span className={styles.count}>{timeElapsed.days}</span>
+                <span className={styles.label}>Dias</span>
+              </div>
+            </div>
+            <div className={`${styles.timeCard} ${animateCards ? styles.animate : ''}`} style={{ animationDelay: '0.3s' }}>
+              <div className={styles.timeCardInner}>
+                <span className={styles.count}>{timeElapsed.hours}</span>
+                <span className={styles.label}>Horas</span>
+              </div>
+            </div>
+            <div className={`${styles.timeCard} ${animateCards ? styles.animate : ''}`} style={{ animationDelay: '0.4s' }}>
+              <div className={styles.timeCardInner}>
+                <span className={styles.count}>{timeElapsed.minutes}</span>
+                <span className={styles.label}>Minutos</span>
+              </div>
+            </div>
+            <div className={`${styles.timeCard} ${animateCards ? styles.animate : ''}`} style={{ animationDelay: '0.5s' }}>
+              <div className={styles.timeCardInner}>
+                <span className={styles.count}>{timeElapsed.seconds}</span>
+                <span className={styles.label}>Segundos</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className={styles.counter}>
-          <div className={styles.counterItem}>
-            <span className={styles.count}>{timeElapsed.years}</span>
-            <span className={styles.label}>Anos</span>
+        <div className={styles.photoSection}>
+          <h3 className={styles.sectionTitle}>Nossos Momentos</h3>
+          
+          <div className={styles.carouselContainer}>
+            <button 
+              className={`${styles.carouselNav} ${styles.prevBtn}`}
+              onClick={() => navigateCarousel('prev')}
+              aria-label="Foto anterior"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            
+            <div className={styles.carousel}>
+              <div className={styles.imageWrapper} style={{ transform: `translateX(-${currentImage * 100}%)` }}>
+                {IMAGES.map((src, index) => (
+                  <div key={index} className={styles.imageContainer}>
+                    <img 
+                      src={src} 
+                      alt={`Foto do casal ${index + 1}`}
+                      className={styles.carouselImage}
+                    />
+                  </div>
+                ))}
+              </div>
+              
+              <div className={styles.imageProgress}>
+                <div 
+                  className={styles.progressBar} 
+                  style={{ width: `${((currentImage + 1) / IMAGES.length) * 100}%` }}
+                ></div>
+              </div>
+            </div>
+            
+            <button 
+              className={`${styles.carouselNav} ${styles.nextBtn}`}
+              onClick={() => navigateCarousel('next')}
+              aria-label="Próxima foto"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
           </div>
-          <div className={styles.counterItem}>
-            <span className={styles.count}>{timeElapsed.days}</span>
-            <span className={styles.label}>Dias</span>
-          </div>
-          <div className={styles.counterItem}>
-            <span className={styles.count}>{timeElapsed.hours}</span>
-            <span className={styles.label}>Horas</span>
-          </div>
-          <div className={styles.counterItem}>
-            <span className={styles.count}>{timeElapsed.minutes}</span>
-            <span className={styles.label}>Minutos</span>
-          </div>
-          <div className={styles.counterItem}>
-            <span className={styles.count}>{timeElapsed.seconds}</span>
-            <span className={styles.label}>Segundos</span>
-          </div>
-        </div>
-
-        <div className={styles.carousel}>
-          <div className={styles.imageWrapper} style={{ transform: `translateX(-${currentImage * 100}%)` }}>
+          
+          <div className={styles.thumbnailsRow}>
             {IMAGES.map((src, index) => (
-              <div key={index} className={styles.imageContainer}>
-                <img 
-                  src={src} 
-                  alt={`Foto do casal ${index + 1}`}
-                  className={styles.carouselImage}
-                />
+              <div 
+                key={index} 
+                className={`${styles.thumbnail} ${index === currentImage ? styles.activeThumbnail : ''}`}
+                onClick={() => setCurrentImage(index)}
+              >
+                <img src={src} alt={`Miniatura ${index + 1}`} />
               </div>
             ))}
           </div>
-          <div className={styles.dots}>
-            {IMAGES.map((_, index) => (
-              <span 
-                key={index} 
-                className={`${styles.dot} ${index === currentImage ? styles.activeDot : ''}`}
-                onClick={() => setCurrentImage(index)}
-              />
-            ))}
-          </div>
         </div>
-      </div>
+      </section>
 
       <div className={styles.backgroundHearts}>
         {[...Array(20)].map((_, i) => (

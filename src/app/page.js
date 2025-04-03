@@ -55,11 +55,15 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
+      <div className={styles.glassOverlay}></div>
+      
       <div className={styles.loginLayout}>
         <div className={styles.illustrationContainer}>
           <div className={styles.illustrationContent}>
-            <h2 className={styles.welcomeText}>Bem-vindo ao</h2>
-            <h1 className={styles.brandTitle}>ForeverCounting</h1>
+            <h1 className={styles.title}>
+              <span className={styles.titleFirst}>Forever</span>
+              <span className={styles.titleSecond}>Counting</span>
+            </h1>
             <p className={styles.tagline}>Contando cada momento do nosso amor</p>
             <div className={styles.heartIllustration}>❤️</div>
           </div>
