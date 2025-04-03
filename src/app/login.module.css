@@ -1,0 +1,460 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+  position: relative;
+  overflow: hidden;
+}
+
+.loginLayout {
+  display: flex;
+  width: 90%;
+  max-width: 1000px;
+  min-height: 600px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1), 
+              0 5px 15px rgba(255, 105, 180, 0.2);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.illustrationContainer {
+  flex: 1;
+  background: linear-gradient(135deg, #ff69b4, #ff1493);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.illustrationContent {
+  color: white;
+  text-align: center;
+  z-index: 2;
+  animation: fadeIn 1s ease-out 0.3s both;
+}
+
+.welcomeText {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+
+.brandTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to right, #fff, #ffd1dc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tagline {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-bottom: 2rem;
+}
+
+.heartIllustration {
+  font-size: 5rem;
+  animation: pulse 2s infinite;
+  margin-top: 2rem;
+}
+
+.formContainer {
+  flex: 1;
+  background-color: white;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formContent {
+  width: 100%;
+  max-width: 400px;
+  animation: slideInRight 0.6s ease-out;
+}
+
+.loginTitle {
+  color: #ff69b4;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.loginTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 50px;
+  height: 4px;
+  background: linear-gradient(to right, #ff69b4, #ff1493);
+  border-radius: 2px;
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 0, 0, 0.08);
+  color: #d32f2f;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  border-left: 4px solid #d32f2f;
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+.errorIcon {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputGroup label {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 600;
+  margin-left: 0.2rem;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 1rem;
+  font-size: 1rem;
+  color: #ff69b4;
+  pointer-events: none;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 2.8rem;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.inputGroup input:focus {
+  outline: none;
+  border-color: #ff69b4;
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.15);
+  background-color: white;
+}
+
+.inputGroup input::placeholder {
+  color: #999;
+}
+
+.loginButton {
+  background: linear-gradient(to right, #ff69b4, #ff1493);
+  color: white;
+  border: none;
+  padding: 1.1rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+}
+
+.loginButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0.2) 50%, 
+    rgba(255, 255, 255, 0) 100%);
+  transition: all 0.6s ease;
+}
+
+.loginButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+}
+
+.loginButton:hover::before {
+  left: 100%;
+}
+
+.loginButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loadingText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.loadingDot {
+  animation: loadingDots 1.4s infinite ease-in-out;
+  display: inline-block;
+}
+
+.loadingDot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loadingDot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loadingDot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.hint {
+  display: none;
+}
+
+.backgroundHearts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.heart {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.7;
+  animation-name: float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.heart0 { animation-duration: 6s; }
+.heart1 { animation-duration: 8s; }
+.heart2 { animation-duration: 10s; }
+.heart3 { animation-duration: 12s; }
+.heart4 { animation-duration: 14s; }
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) translateX(0) scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-100px) translateX(calc(100px * var(--random, 1))) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-3px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(3px, 0, 0);
+  }
+}
+
+@keyframes loadingDots {
+  0%, 80%, 100% { 
+    transform: scale(0.6);
+    opacity: 0.6;
+  }
+  40% { 
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Posicionando corações aleatoriamente */
+.heart:nth-child(1) { left: 10%; --random: 0.5; }
+.heart:nth-child(2) { left: 20%; --random: -0.2; }
+.heart:nth-child(3) { left: 30%; --random: 0.7; }
+.heart:nth-child(4) { left: 40%; --random: -0.5; }
+.heart:nth-child(5) { left: 50%; --random: 0.3; }
+.heart:nth-child(6) { left: 60%; --random: -0.8; }
+.heart:nth-child(7) { left: 70%; --random: 0.2; }
+.heart:nth-child(8) { left: 80%; --random: -0.3; }
+.heart:nth-child(9) { left: 90%; --random: 0.6; }
+.heart:nth-child(10) { left: 5%; --random: -0.4; }
+.heart:nth-child(11) { left: 15%; --random: 0.8; }
+.heart:nth-child(12) { left: 25%; --random: -0.6; }
+.heart:nth-child(13) { left: 35%; --random: 0.4; }
+.heart:nth-child(14) { left: 45%; --random: -0.7; }
+.heart:nth-child(15) { left: 55%; --random: 0.9; }
+.heart:nth-child(16) { left: 65%; --random: -0.1; }
+.heart:nth-child(17) { left: 75%; --random: 0.5; }
+.heart:nth-child(18) { left: 85%; --random: -0.5; }
+.heart:nth-child(19) { left: 95%; --random: 0.3; }
+.heart:nth-child(20) { left: 99%; --random: -0.2; }
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .loginLayout {
+    flex-direction: column;
+    min-height: auto;
+  }
+  
+  .illustrationContainer {
+    padding: 2rem 1rem;
+  }
+  
+  .brandTitle {
+    font-size: 2.5rem;
+  }
+  
+  .formContainer {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .loginLayout {
+    width: 95%;
+    margin: 1rem;
+  }
+  
+  .illustrationContainer {
+    padding: 1.5rem 1rem;
+  }
+  
+  .brandTitle {
+    font-size: 2rem;
+  }
+  
+  .welcomeText {
+    font-size: 1.2rem;
+  }
+  
+  .heartIllustration {
+    font-size: 4rem;
+  }
+  
+  .loginTitle {
+    font-size: 1.8rem;
+  }
+  
+  .inputGroup input {
+    padding: 0.9rem 1rem 0.9rem 2.8rem;
+  }
+}
+
+/* Estilo para o botão de mostrar/esconder senha */
+.passwordToggle {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.passwordToggle:hover {
+  opacity: 0.8;
+}
+
+.passwordToggle:focus {
+  outline: none;
+} 
