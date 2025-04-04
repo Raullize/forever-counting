@@ -88,16 +88,8 @@ export default function Dashboard() {
         
         if (element) {
           const options = {
-            uri: 'spotify:playlist:0TKY7sz5rFYzo5XWJ0wHSn',
-            theme: 'custom',
-            styles: {
-              bgColor: '#820000',
-              color: '#FFFFFF',
-              loaderColor: '#FFFFFF', 
-              sliderColor: '#FFFFFF',
-              trackArtistColor: '#FFFFFF',
-              trackNameColor: '#FFFFFF',
-            }
+            theme: 'dark',
+            uri: 'spotify:playlist:0TKY7sz5rFYzo5XWJ0wHSn'
           };
           
           // Criar o player
@@ -109,13 +101,12 @@ export default function Dashboard() {
               setIsMusicPlaying(!e.data.isPaused);
             });
             
-            // Adicionar estilo adicional para remover qualquer borda
+            // Apenas garantir que não tenha bordas
             try {
               const iframe = document.querySelector('iframe[src*="spotify"]');
               if (iframe) {
                 iframe.style.border = 'none';
                 iframe.style.borderRadius = '12px';
-                iframe.style.backgroundColor = '#820000';
               }
             } catch (error) {
               console.error('Erro ao estilizar iframe:', error);
