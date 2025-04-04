@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './dashboard.module.css';
 
@@ -16,6 +16,9 @@ const IMAGES = [
   `https://placehold.co/800x600/ff1493/ffffff?text=Foto+5`,
 ];
 
+// URI da playlist do Spotify (exemplo - substitua pelo URI da sua playlist)
+const SPOTIFY_PLAYLIST_URI = 'spotify:playlist:0TKY7sz5rFYzo5XWJ0wHSn';
+
 export default function Dashboard() {
   const router = useRouter();
   const [timeElapsed, setTimeElapsed] = useState({
@@ -27,6 +30,8 @@ export default function Dashboard() {
   });
   const [currentImage, setCurrentImage] = useState(0);
   const [animateCards, setAnimateCards] = useState(false);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const spotifyPlayerRef = useRef(null);
 
   // Função para calcular o tempo decorrido
   const calculateTimeElapsed = () => {
@@ -71,6 +76,92 @@ export default function Dashboard() {
     setAnimateCards(true);
   }, []);
 
+  // Efeito para carregar o script do Spotify Embed
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://open.spotify.com/embed-podcast/iframe-api/v1';
+    script.async = true;
+    
+    script.onload = () => {
+      window.onSpotifyIframeApiReady = (IFrameAPI) => {
+        const element = document.getElementById('spotify-embed');
+        
+        if (element) {
+          const options = {
+            uri: 'spotify:playlist:0TKY7sz5rFYzo5XWJ0wHSn',
+            theme: 'custom',
+            styles: {
+              bgColor: '#820000',
+              color: '#FFFFFF',
+              loaderColor: '#FFFFFF', 
+              sliderColor: '#FFFFFF',
+              trackArtistColor: '#FFFFFF',
+              trackNameColor: '#FFFFFF',
+            }
+          };
+          
+          // Criar o player
+          const callback = (EmbedController) => {
+            spotifyPlayerRef.current = EmbedController;
+            
+            // Registrar event listener para mudanças de estado do player
+            spotifyPlayerRef.current.addListener('playback_update', (e) => {
+              setIsMusicPlaying(!e.data.isPaused);
+            });
+            
+            // Adicionar estilo adicional para remover qualquer borda
+            try {
+              const iframe = document.querySelector('iframe[src*="spotify"]');
+              if (iframe) {
+                iframe.style.border = 'none';
+                iframe.style.borderRadius = '12px';
+                iframe.style.backgroundColor = '#820000';
+                
+                // Adicionar um timeout para verificar e ajustar novamente se necessário
+                setTimeout(() => {
+                  const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                  if (iframeDocument) {
+                    const styleElement = iframeDocument.createElement('style');
+                    styleElement.textContent = 'body { background-color: #820000 !important; }';
+                    iframeDocument.head.appendChild(styleElement);
+                  }
+                }, 1000);
+              }
+            } catch (error) {
+              console.error('Erro ao estilizar iframe:', error);
+            }
+          };
+          
+          IFrameAPI.createController(element, options, callback);
+        }
+      };
+    };
+    
+    document.body.appendChild(script);
+    
+    // Limpar ao desmontar
+    return () => {
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
+  }, []);
+
+  // Função para controlar a reprodução de música
+  const toggleMusic = () => {
+    try {
+      if (spotifyPlayerRef.current) {
+        if (isMusicPlaying) {
+          spotifyPlayerRef.current.pause();
+        } else {
+          spotifyPlayerRef.current.play();
+        }
+      }
+    } catch (error) {
+      console.error('Erro ao controlar o player do Spotify:', error);
+    }
+  };
+
   // Função para fazer logout
   const handleLogout = async () => {
     try {
@@ -106,14 +197,33 @@ export default function Dashboard() {
             <span className={styles.titleSecond}>Counting</span>
           </h1>
         </div>
-        <button onClick={handleLogout} className={styles.logoutButton}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-            <polyline points="16 17 21 12 16 7"></polyline>
-            <line x1="21" y1="12" x2="9" y2="12"></line>
-          </svg>
-          <span>Sair</span>
-        </button>
+        <div className={styles.headerControls}>
+          <button 
+            onClick={toggleMusic} 
+            className={styles.musicButton}
+            title={isMusicPlaying ? "Pausar música" : "Tocar música"}
+          >
+            {isMusicPlaying ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            )}
+            <span>Música</span>
+          </button>
+          <button onClick={handleLogout} className={styles.logoutButton}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span>Sair</span>
+          </button>
+        </div>
       </header>
 
       <section className={styles.dashboardContainer}>
@@ -213,6 +323,13 @@ export default function Dashboard() {
                 <img src={src} alt={`Miniatura ${index + 1}`} />
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Player do Spotify */}
+        <div className={styles.musicSection}>
+          <div className={styles.playerWrapper}>
+            <div id="spotify-embed" className={styles.spotifyPlayer}></div>
           </div>
         </div>
       </section>
