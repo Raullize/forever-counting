@@ -1,17 +1,9 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
+import usersData from '@/data/users.json';
 
-// Credenciais de usuário (em uma aplicação real, isso estaria em um banco de dados)
-const USERS = {
-  'LaraTavares': {
-    password: '22Dec22',
-    isAdmin: false
-  },
-  'adminUser': {
-    password: 'admin@password',
-    isAdmin: true
-  }
-};
+// Importando usuários do arquivo JSON
+const USERS = usersData.users;
 
 export async function POST(request) {
   try {

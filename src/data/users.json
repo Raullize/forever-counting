@@ -1,0 +1,12 @@
+{
+  "users": {
+    "LaraTavares": {
+      "password": "22Dec22",
+      "isAdmin": false
+    },
+    "adminUser": {
+      "password": "admin@password",
+      "isAdmin": true
+    }
+  }
+} 
