@@ -2,6 +2,15 @@
   "name": "forever-counting",
   "version": "0.1.0",
   "private": true,
+  "description": "Aplicação para contar o tempo de relacionamento de um casal, com recursos de contador de tempo, galeria de fotos e player de música do Spotify",
+  "license": "proprietary",
+  "keywords": ["relacionamento", "contador", "casal", "fotos", "spotify", "amor"],
+  "author": {
+      "name": "Raul Lize Teixeira",
+      "email": "raullizeteixeira@gmail.com",
+      "homepage": "https://depsmodels.com",
+      "role": "Developer"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
