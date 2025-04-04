@@ -116,16 +116,6 @@ export default function Dashboard() {
                 iframe.style.border = 'none';
                 iframe.style.borderRadius = '12px';
                 iframe.style.backgroundColor = '#820000';
-                
-                // Adicionar um timeout para verificar e ajustar novamente se necessário
-                setTimeout(() => {
-                  const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-                  if (iframeDocument) {
-                    const styleElement = iframeDocument.createElement('style');
-                    styleElement.textContent = 'body { background-color: #820000 !important; }';
-                    iframeDocument.head.appendChild(styleElement);
-                  }
-                }, 1000);
               }
             } catch (error) {
               console.error('Erro ao estilizar iframe:', error);
