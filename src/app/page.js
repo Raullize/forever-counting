@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import './globals.css';
 import styles from './login.module.css';
@@ -10,6 +10,8 @@ export default function Home() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [heartClicks, setHeartClicks] = useState(0);
+  const [showConfetti, setShowConfetti] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
     password: ''
@@ -22,6 +24,18 @@ export default function Home() {
 
   const togglePasswordVisibility = () => {
     setShowPassword(prev => !prev);
+  };
+
+  const handleHeartClick = () => {
+    const newClickCount = heartClicks + 1;
+    setHeartClicks(newClickCount);
+    
+    if (newClickCount === 22) {
+      setShowConfetti(true);
+      setTimeout(() => {
+        setShowConfetti(false);
+      }, 5000);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -65,7 +79,12 @@ export default function Home() {
               <span className={styles.titleSecond}>Counting</span>
             </h1>
             <p className={styles.tagline}>Contando cada momento do nosso amor</p>
-            <div className={styles.heartIllustration}>❤️</div>
+            <div 
+              className={styles.heartIllustration} 
+              onClick={handleHeartClick}
+            >
+              ❤️
+            </div>
           </div>
         </div>
         
@@ -161,6 +180,23 @@ export default function Home() {
           </div>
         </div>
       </div>
+      
+      {showConfetti && (
+        <div className={styles.confetti}>
+          {[...Array(100)].map((_, i) => (
+            <div 
+              key={i} 
+              className={styles.confettiPiece} 
+              style={{ 
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                backgroundColor: `hsl(${Math.random() * 360}, 90%, 70%)`,
+                '--random': Math.random() * 2 - 1
+              }}
+            ></div>
+          ))}
+        </div>
+      )}
       
       <div className={styles.backgroundHearts}>
         {[...Array(20)].map((_, i) => (

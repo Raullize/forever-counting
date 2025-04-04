@@ -100,6 +100,17 @@
   animation: pulse 2s infinite;
   margin-top: 2rem;
   filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.2));
+  user-select: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.heartIllustration:hover {
+  transform: scale(1.1);
+}
+
+.heartIllustration:active {
+  transform: scale(0.95);
 }
 
 .formContainer {
@@ -489,5 +500,67 @@
   
   .inputGroup input {
     padding: 0.9rem 1rem 0.9rem 2.8rem;
+  }
+}
+
+/* Confetti Animation */
+.confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.confettiPiece {
+  position: absolute;
+  width: 10px;
+  height: 20px;
+  background-color: #f00;
+  top: -20px;
+  animation: confettiFall 5s ease-in-out forwards;
+  transform-origin: center;
+  z-index: 1000;
+}
+
+.confettiPiece:nth-child(odd) {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.confettiPiece:nth-child(4n) {
+  width: 8px;
+  height: 24px;
+  animation-duration: 4s;
+}
+
+.confettiPiece:nth-child(3n) {
+  animation-duration: 6s;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: translateY(25vh) rotate(90deg) translateX(calc(var(--random, 0.5) * 100px));
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(50vh) rotate(180deg) translateX(calc(var(--random, -0.5) * 200px));
+    opacity: 0.6;
+  }
+  75% {
+    transform: translateY(75vh) rotate(270deg) translateX(calc(var(--random, 0.5) * 100px));
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
   }
 } 
