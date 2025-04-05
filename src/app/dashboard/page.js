@@ -4,10 +4,10 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './dashboard.module.css';
 
-// Data de referência: 22/12/2022
+// REFERENCE_DATE é a data de referência do contador no formato YYYY-MM-DD
 const REFERENCE_DATE = new Date('2022-12-22T00:00:00');
 
-// Placeholders para o carrossel (em uma aplicação real, seriam fotos do casal)
+// IMAGES é o array de imagens do carrossel
 const IMAGES = [
   `https://placehold.co/800x600/ffafbd/ffffff?text=Foto+1`,
   `https://placehold.co/800x600/ffc3a0/ffffff?text=Foto+2`,
@@ -16,8 +16,8 @@ const IMAGES = [
   `https://placehold.co/800x600/ff1493/ffffff?text=Foto+5`,
 ];
 
-// URI da playlist do Spotify (exemplo - substitua pelo URI da sua playlist)
-const SPOTIFY_PLAYLIST_URI = 'spotify:playlist:0TKY7sz5rFYzo5XWJ0wHSn';
+// SPOTIFY_PLAYLIST_URI é o URI da playlist do Spotify, substitua pelo URI da sua playlist
+const SPOTIFY_PLAYLIST_URI = 'spotify:playlist:37i9dQZF1DX7rOY2tZUw1k';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -90,7 +90,7 @@ export default function Dashboard() {
         if (element) {
           const options = {
             theme: 'dark',
-            uri: 'spotify:playlist:0TKY7sz5rFYzo5XWJ0wHSn'
+            uri: 'spotify:playlist:37i9dQZF1DX7rOY2tZUw1k'
           };
           
           // Criar o player

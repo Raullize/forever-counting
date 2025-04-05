@@ -26,11 +26,14 @@ export default function Home() {
     setShowPassword(prev => !prev);
   };
 
+  // clickCount é o número de cliques para ativar o easter egg
+  let clickCount = 3;
+
   const handleHeartClick = () => {
     const newClickCount = heartClicks + 1;
     setHeartClicks(newClickCount);
     
-    if (newClickCount === 22) {
+    if (newClickCount === clickCount) {
       setShowConfetti(true);
       setTimeout(() => {
         setShowConfetti(false);
