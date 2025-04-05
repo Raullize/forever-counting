@@ -32,6 +32,7 @@ export default function Dashboard() {
   const [animateCards, setAnimateCards] = useState(false);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const spotifyPlayerRef = useRef(null);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   // Função para calcular o tempo decorrido
   const calculateTimeElapsed = () => {
@@ -146,6 +147,7 @@ export default function Dashboard() {
   // Função para fazer logout
   const handleLogout = async () => {
     try {
+      setIsLoggingOut(true);
       const response = await fetch('/api/logout', {
         method: 'POST',
       });
@@ -155,6 +157,8 @@ export default function Dashboard() {
       }
     } catch (error) {
       console.error('Erro ao fazer logout:', error);
+    } finally {
+      setIsLoggingOut(false);
     }
   };
 
@@ -170,6 +174,17 @@ export default function Dashboard() {
   return (
     <main className={styles.main}>
       <div className={styles.glassOverlay}></div>
+      
+      {isLoggingOut && (
+        <div className={styles.loadingOverlay}>
+          <div className={styles.loadingSpinner}>
+            <div className={styles.loadingCircle}></div>
+            <div className={styles.loadingCircle}></div>
+            <div className={styles.loadingHeart}>❤️</div>
+            <div className={styles.loadingMessage}>Saindo...</div>
+          </div>
+        </div>
+      )}
 
       <header className={styles.header}>
         <div className={styles.logoContainer}>

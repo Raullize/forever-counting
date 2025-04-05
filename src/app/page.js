@@ -71,6 +71,17 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.glassOverlay}></div>
       
+      {isLoading && (
+        <div className={styles.loadingOverlay}>
+          <div className={styles.loadingSpinner}>
+            <div className={styles.loadingCircle}></div>
+            <div className={styles.loadingCircle}></div>
+            <div className={styles.loadingHeart}>❤️</div>
+            <div className={styles.loadingMessage}>Conectando...</div>
+          </div>
+        </div>
+      )}
+      
       <div className={styles.loginLayout}>
         <div className={styles.illustrationContainer}>
           <div className={styles.illustrationContent}>
@@ -166,15 +177,7 @@ export default function Home() {
                 className={styles.loginButton}
                 disabled={isLoading}
               >
-                {isLoading ? (
-                  <span className={styles.loadingText}>
-                    <span className={styles.loadingDot}>.</span>
-                    <span className={styles.loadingDot}>.</span>
-                    <span className={styles.loadingDot}>.</span>
-                  </span>
-                ) : (
-                  'Entrar'
-                )}
+                Entrar
               </button>
             </form>
           </div>
