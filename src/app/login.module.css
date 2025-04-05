@@ -1,6 +1,6 @@
 .main {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--background-gradient-start), var(--background-gradient-end));
+  background: linear-gradient(315deg, var(--background-gradient-start), var(--background-gradient-end));
   position: relative;
   overflow: hidden;
   display: flex;
