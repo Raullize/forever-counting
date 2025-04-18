@@ -9,11 +9,11 @@ const REFERENCE_DATE = new Date('2022-12-22T00:00:00');
 
 // IMAGES é o array de imagens do carrossel
 const IMAGES = [
-  `https://placehold.co/800x600/ffafbd/ffffff?text=Foto+1`,
-  `https://placehold.co/800x600/ffc3a0/ffffff?text=Foto+2`,
-  `https://placehold.co/800x600/ff69b4/ffffff?text=Foto+3`,
-  `https://placehold.co/800x600/ffd1dc/ffffff?text=Foto+4`,
-  `https://placehold.co/800x600/ff1493/ffffff?text=Foto+5`,
+  `/images/slide1.png`,
+  `/images/slide2.png`,
+  `/images/slide3.jpg`,
+  `/images/slide4.png`,
+  `/images/slide5.png`,
 ];
 
 // SPOTIFY_PLAYLIST_URI é o URI da playlist do Spotify, substitua pelo URI da sua playlist
