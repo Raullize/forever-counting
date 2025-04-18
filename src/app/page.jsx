@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import './globals.css';
 import styles from './login.module.css';
 
@@ -27,7 +27,7 @@ export default function Home() {
   };
 
   // clickCount é o número de cliques para ativar o easter egg
-  let clickCount = 3;
+  let clickCount = 22;
 
   const handleHeartClick = () => {
     const newClickCount = heartClicks + 1;

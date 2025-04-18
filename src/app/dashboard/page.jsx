@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 import styles from './dashboard.module.css';
 
 // REFERENCE_DATE é a data de referência do contador no formato YYYY-MM-DD
@@ -17,7 +17,7 @@ const IMAGES = [
 ];
 
 // SPOTIFY_PLAYLIST_URI é o URI da playlist do Spotify, substitua pelo URI da sua playlist
-const SPOTIFY_PLAYLIST_URI = 'spotify:playlist:37i9dQZF1DX7rOY2tZUw1k';
+const SPOTIFY_PLAYLIST_URI = 'spotify:playlist:0TKY7sz5rFYzo5XWJ0wHSn';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -90,7 +90,7 @@ export default function Dashboard() {
         if (element) {
           const options = {
             theme: 'dark',
-            uri: 'spotify:playlist:37i9dQZF1DX7rOY2tZUw1k'
+            uri: 'spotify:playlist:0TKY7sz5rFYzo5XWJ0wHSn'
           };
           
           // Criar o player
